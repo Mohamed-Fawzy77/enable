@@ -1,0 +1,11 @@
+{
+  "name": "enable",
+  "version": "1.0.0",
+  "description": "task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohamed Fawzy",
+  "license": "ISC"
+}
