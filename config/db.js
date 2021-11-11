@@ -1,13 +1,8 @@
 const mongoose = require('mongoose');
 
-const config = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-}
-
-mongoose.connect(process.env.database_connection_string, config).then(()=>{
+mongoose.connect(process.env.database_connection_string).then(()=>{
     console.log(`connection to database succeed`);
-}).catch(()=> {
+}).catch((error)=> {
     console.log(`connection to database failed`);
+    console.log({error})
 })
