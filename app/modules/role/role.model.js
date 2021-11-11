@@ -4,7 +4,8 @@ const rolesNames = ['Super Admin Role', 'Department Manager', 'Employee'];
 
 const RoleSchema = new mongoose.Schema({
     name: { type: String, enum: rolesNames, required: true },
-    permissions: [{ type: mongoose.Schema.Types.ObjectId }]
+    permissions: [{ type: mongoose.Schema.Types.ObjectId }],
+    removed: { type: Boolean, default: false }
 },
     { timestamps: true }
 );

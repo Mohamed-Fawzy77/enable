@@ -5,10 +5,11 @@ const UserSchema = new mongoose.Schema({
     lastName: { type: String },
     department: { type: mongoose.Schema.Types.ObjectId, ref: 'Department' },
     role: { type: mongoose.Schema.Types.ObjectId, ref: 'Role' },
+    removed: { type: Boolean, default: false }
 },
     { timestamps: true }
 );
 
 const User = mongoose.model('User', UserSchema);
 
-module.exports  = User;
+module.exports = User;
