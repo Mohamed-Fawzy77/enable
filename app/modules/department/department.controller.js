@@ -66,5 +66,25 @@ class DepartmentController{
             res.status(response.statusCode).send(response);
         }
     }
+
+    static async getAllDepartments(req, res){
+        try {
+            
+            const departments = await DepartmentService.getAllDepartments();
+
+            res.send({
+                status: true,
+                statusCode: 200,
+                data: departments
+            })
+
+        } catch (error) {
+            const response = formualateErrorResponse(error);
+
+            res.status(response.statusCode).send(response);
+        }
+    }
+
+    
 }
 module.exports=DepartmentController

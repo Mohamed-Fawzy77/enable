@@ -31,22 +31,14 @@ departmentRouter.delete(
     ]),
     DepartmentController.deleteDepartment
 )
-// departmentRouter.put(
-//     '/deleteDepartment',
-//     protectApi,
-//     checkPermission([
-//         'update_department'
-//     ]),
-//     DepartmentController.updateDepartment
-// )
 
-// departmentRouter.get(
-//     '/allDepartments',
-//     protectApi,
-//     checkPermission([
-//         'list_all_departments'
-//     ]),
-//     DepartmentController.getAllDepartments
-// )
+departmentRouter.get(
+    '/allDepartments',
+    protectApi,
+    checkPermission([
+        'list_all_departments'
+    ]),
+    DepartmentController.getAllDepartments
+)
 
 module.exports = departmentRouter;

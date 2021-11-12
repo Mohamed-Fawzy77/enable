@@ -6,6 +6,14 @@ class DepartmentService {
 
         return department;
     }
+
+    static async getDepartments(schema){
+        const departments = await Department.find(schema);
+
+        return departments;
+    }
+
+    
     static async createNewDepartment(departmentSchema){
         const department = new Department(departmentSchema);
         await department.save()
