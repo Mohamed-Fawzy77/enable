@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const rolesNames = ['Super Admin Role', 'Department Manager', 'Employee'];
+const rolesNames = ['super_admin', 'department_manager', 'employee'];
 
 const RoleSchema = new mongoose.Schema({
     name: { type: String, enum: rolesNames, required: true },
@@ -10,6 +10,9 @@ const RoleSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-const Role = mongoose.model('User', RoleSchema);
+
+RoleSchema.index({ name: 1 }, { unique: true, partialFilterExpression: { removed: false } })
+
+const Role = mongoose.model('Role', RoleSchema);
 
 module.exports = Role;

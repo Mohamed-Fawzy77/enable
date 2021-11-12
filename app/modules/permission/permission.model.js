@@ -14,6 +14,8 @@ const PermissionSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+PermissionSchema.index({ name: 1 }, { unique: true, partialFilterExpression: { removed: false } })
+
 const Permission = mongoose.model('Permission', PermissionSchema);
 
 module.exports = Permission;
