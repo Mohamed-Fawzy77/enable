@@ -24,7 +24,9 @@ const deleteAndViewUser = Joi.object().keys({
     userId: mongoId.required()
 })
 
-
+const searchSchema = Joi.object().keys({
+    search: Joi.string().required()
+})
 
 class UserValidator {
     static validateAddUserSchema(schema) {
@@ -42,7 +44,12 @@ class UserValidator {
         validateJoiSchema(validatationResult);
     }
 
+    static validateSearchUsers(schema) {
+        const validatationResult = searchSchema.validate(schema);
+        validateJoiSchema(validatationResult);
+    }
 
+    
     
 }
 

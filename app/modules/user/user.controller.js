@@ -148,6 +148,44 @@ class UserController {
         }
     }
 
+    static async searchUsers(req, res){
+        try {
+
+            UserValidator.validateSearchUsers(req.body);
+            const user = req.user;
+
+            const userRole = await RoleService.getRole(user.role);
+
+            const findAllUsersSchema = {
+                removed: false,
+                $text: {
+                    $search: req.body.search
+                }
+            };
+
+            if(userRole.name === 'department_manager'){
+                findAllUsersSchema.department = user.department;
+            }
+
+
+            const users = await UserService.getUsers(findAllUsersSchema);
+
+            return res.json({
+                status: true,
+                statusCode: 200,
+                data: users
+            })
+
+
+        } catch (error) {
+            const response = formualateErrorResponse(error);
+
+            res.status(response.statusCode).send(response);
+        }
+    }
+
+    
+
 
     
 

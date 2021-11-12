@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
 },
     { timestamps: true }
 );
-
+UserSchema.index({ '$**': 'text' });
 UserSchema.index({ email: 1 }, { unique: true, partialFilterExpression: { removed: false } })
 
 UserSchema.pre('save', function (next) {

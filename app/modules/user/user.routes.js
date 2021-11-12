@@ -19,6 +19,15 @@ userRouter.post(
 )
 
 userRouter.post(
+    '/searchUser',
+    protectApi,
+    checkPermission([
+        'create_user'
+    ]),
+    UserController.searchUsers
+)
+
+userRouter.post(
     '/viewUSer',
     protectApi,
     checkPermission([
