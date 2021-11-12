@@ -1,17 +1,26 @@
 const DepartmentRepo = require('./department.repository');
-const CustomError = require('../../helpers/custom_error');
 
-class DepartmentService {
-    static async validateDepartmentExists(departmentId){
-        const department = DepartmentRepo.getDepartment({
+class DepartmentRepository {
+   
+    static async createNewDepartment(departmentSchema){
+        const department = await DepartmentRepo.createNewDepartment(departmentSchema);
+        
+        return department;
+    }
+    static async deleteDepartment(id){
+        const department = await DepartmentRepo.deleteDepartment({
+            _id:id
+        });
+    }
+
+    static async getDepartment(departmentId){
+        const department = await DepartmentRepo.getDepartment({
             _id: departmentId,
             removed: false
         });
 
-        if(!department){
-            throw new CustomError({message: `department doesn't exist`}, 400);
-        }
+        return department;
     }
 }
 
-module.exports = DepartmentService;
+module.exports = DepartmentRepository;

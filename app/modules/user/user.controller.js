@@ -60,15 +60,97 @@ class UserController {
             res.send({
                 status: true,
                 statusCode: 200,
-                data: user
+                data: {
+                    _id:user._id,
+                    email,
+                    firstName,
+                    lastName,
+                    department,
+                    role
+                }
             })
 
         } catch (error) {
-            const repsonse = formualateErrorResponse(error);
+            const response = formualateErrorResponse(error);
 
             res.status(response.statusCode).send(response);
         }
     }
+
+    static async deleteUser(req, res){
+        try {
+            UserValidator.validateDeleteAndViewUserSchema(req.body);
+            const { userId } = req.body;
+            
+            const user = await UserService.deleteUser(userId);
+
+            res.send({
+                status: true,
+                statusCode: 200,
+                msg: 'user deleted successfully'
+            })
+
+        } catch (error) {
+            const response = formualateErrorResponse(error);
+
+            res.status(response.statusCode).send(response);
+        }
+    }
+
+    static async viewUser(req, res){
+        try {
+            UserValidator.validateDeleteAndViewUserSchema(req.body);
+            const { userId } = req.body;
+            
+            const user = await UserService.getUser( userId );
+
+            res.send({
+                status: true,
+                statusCode: 200,
+                data: user
+            })
+
+        } catch (error) {
+            const response = formualateErrorResponse(error);
+
+            res.status(response.statusCode).send(response);
+        }
+    }
+
+    static async getAllUsers(req, res){
+        try {
+            const user = req.user;
+
+            const userRole = await RoleService.getRole(user.role);
+
+            const findAllUsersSchema = {
+                removed: false
+            };
+
+            if(userRole.name === 'department_manager'){
+                findAllUsersSchema.department = user.department;
+            }
+
+
+            const users = await UserService.getUsers(findAllUsersSchema);
+
+            return res.json({
+                status: true,
+                statusCode: 200,
+                data: users
+            })
+
+
+        } catch (error) {
+            const response = formualateErrorResponse(error);
+
+            res.status(response.statusCode).send(response);
+        }
+    }
+
+
+    
+
 }
 
 module.exports = UserController;

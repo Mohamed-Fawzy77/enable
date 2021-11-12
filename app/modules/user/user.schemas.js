@@ -18,15 +18,32 @@ const loginSchema = Joi.object().keys({
     password: Joi.string().min(8).required()
 })
 
+
+
+const deleteAndViewUser = Joi.object().keys({
+    userId: mongoId.required()
+})
+
+
+
 class UserValidator {
     static validateAddUserSchema(schema) {
         const validatationResult = addUserSchema.validate(schema);
         validateJoiSchema(validatationResult);
     }
+
+    static validateDeleteAndViewUserSchema(schema) {
+        const validatationResult = deleteAndViewUser.validate(schema);
+        validateJoiSchema(validatationResult);
+    }
+
     static validateLoginSchema(schema) {
         const validatationResult = loginSchema.validate(schema);
         validateJoiSchema(validatationResult);
     }
+
+
+    
 }
 
 module.exports = UserValidator;

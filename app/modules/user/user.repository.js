@@ -1,15 +1,15 @@
 const User = require('./user.model');
 
-class UserService {
+class UserRepository {
 
     static async createNewUser(userSchema){
         const user = new User(userSchema);
-
+        await user.save()
         return user;
     }
 
     static async getUsers(schema){
-        const users = await User.find(schema);
+        const users = await User.find(schema).select('-password');
 
         return users;
     }
@@ -19,6 +19,23 @@ class UserService {
 
         return user;
     }
+
+    static async deleteUser(schema){
+        const user = await User.updateOne(schema, {$set: {removed: true}})
+
+        return user;
+    }
+
+    static async getUserWithRoleAndDepartmentPopulated(schema){
+        const user = await User.findOne(schema)
+            .select('-password')
+            .populate({path: 'department'})
+            .populate({path: 'role'});
+
+        return user;
+    }
+
+    
 }
 
-module.exports = UserService;
+module.exports = UserRepository;

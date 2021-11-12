@@ -27,6 +27,30 @@ class UserService {
 
         return user;
     }
+
+    static async deleteUser(id){
+        const user = await UserRepo.deleteUser({
+            _id:id
+        });
+    }
+
+    static async getUser(userId){
+        const user = await UserRepo.getUserWithRoleAndDepartmentPopulated({
+            _id: userId,
+            removed: false
+        });
+
+        return user;
+    }
+
+    static async getUsers(schema){
+        const users = await UserRepo.getUsers(schema);
+
+        return users;
+    }
+
+    
+    
 }
 
 module.exports = UserService;
